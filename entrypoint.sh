@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ -d /opt/config ]]; then
-	mv -n /opt/config/* /opt/homs/config
+	cp -rn /opt/config/* /opt/homs/config
 	rm -rf /opt/config
 fi
 
