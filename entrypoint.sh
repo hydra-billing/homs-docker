@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [[ -d /opt/config ]]; then
-	cp -rn /opt/config/* /opt/homs/config
-	rm -rf /opt/config
+if [[ -d /tmp/config ]]; then
+	mv -n /tmp/config/* /opt/homs/config
+	rm -rf /tmp/*
 fi
 
 cd /opt/homs
