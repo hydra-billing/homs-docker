@@ -1,9 +1,10 @@
 #!/bin/bash
 
+mv /opt/config /opt/homs/config
 cd /opt/homs
-find config -name "activiti.yml.sample" -exec sed -i -e "s/localhost/$ACTIVITI_HOST/" '{}' \; \
-&& find config -name "database.yml.sample" -exec sed -i -e "s/localhost/$DB_HOST/" '{}' \; \
-&& find config -name '*.sample' | xargs -I{} sh -c 'cp $1 ${1%.*}' -- {}
+sed -i -e "s/localhost/$ACTIVITI_HOST/" config/activiti.yml.sample
+sed -i -e "s/localhost/$DB_HOST/" config/database.yml.sample
+find config -name '*.sample' | xargs -I{} sh -c 'cp $1 ${1%.*}' -- {}
 bundle exec rake db:migrate
 
 if [[ ! -a seed.lock || "$FORCE_DB_SEED" = "yes" ]]; then 
@@ -11,4 +12,5 @@ if [[ ! -a seed.lock || "$FORCE_DB_SEED" = "yes" ]]; then
 	touch seed.lock
 fi
 
-thin start --threaded
+thin config -C config/thin.yml
+thin start --threaded -C config/thin.yml

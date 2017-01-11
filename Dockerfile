@@ -11,6 +11,7 @@ RUN apt-get update \
 RUN git clone https://github.com/latera/homs.git
 WORKDIR /opt/homs
 RUN bundle --without oracle
+RUN mv /opt/homs/config /opt
 EXPOSE 3000
 
 ENTRYPOINT ["/entrypoint.sh"]
