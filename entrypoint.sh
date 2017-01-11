@@ -16,5 +16,5 @@ if [[ ! -a seed.lock || "$FORCE_DB_SEED" = "yes" ]]; then
 	touch seed.lock
 fi
 
-[[ ! -a config/thin.yml ]] && thin config -C config/thin.yml
-thin start --threaded -C config/thin.yml
+[[ ! -a config/thin.yml ]] || thin config -C config/thin.yml
+thin start -C config/thin.yml --threaded 
