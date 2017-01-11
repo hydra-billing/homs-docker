@@ -1,6 +1,9 @@
 #!/bin/bash
 
-mv /opt/config /opt/homs/config
+if [[ -d /opt/config ]]; then
+	mv /opt/config/* /opt/homs/config
+	rm -f /opt/config
+fi
 cd /opt/homs
 sed -i -e "s/localhost/$ACTIVITI_HOST/" config/activiti.yml.sample
 sed -i -e "s/localhost/$DB_HOST/" config/database.yml.sample
