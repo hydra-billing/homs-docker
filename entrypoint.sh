@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ -d /tmp/config ]]; then
-	mv -n /tmp/config/* /opt/homs/config
+	cp -rn /tmp/config/* /opt/homs/config/
 	rm -rf /tmp/*
 fi
 
@@ -16,5 +16,4 @@ if [[ ! -a seed.lock || "$FORCE_DB_SEED" = "yes" ]]; then
 	touch seed.lock
 fi
 
-[[ ! -a config/thin.yml ]] || thin config -C config/thin.yml
-thin start -C config/thin.yml --threaded 
+thin start --threaded 
