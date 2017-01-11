@@ -1,9 +1,10 @@
 #!/bin/bash
 
 if [[ -d /opt/config ]]; then
-	mv /opt/config/* /opt/homs/config
-	rm -f /opt/config
+	mv -n /opt/config/* /opt/homs/config
+	rm -rf /opt/config
 fi
+
 cd /opt/homs
 sed -i -e "s/localhost/$ACTIVITI_HOST/" config/activiti.yml.sample
 sed -i -e "s/localhost/$DB_HOST/" config/database.yml.sample
@@ -15,5 +16,5 @@ if [[ ! -a seed.lock || "$FORCE_DB_SEED" = "yes" ]]; then
 	touch seed.lock
 fi
 
-thin config -C config/thin.yml
+[[ ! -a config/thin.yml ]] && thin config -C config/thin.yml
 thin start --threaded -C config/thin.yml
