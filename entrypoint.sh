@@ -16,4 +16,4 @@ if [[ ! -a seed.lock || "$FORCE_DB_SEED" = "yes" ]]; then
 	touch seed.lock
 fi
 
-thin start --threaded 
+thin start --threaded -e $RACK_ENV
