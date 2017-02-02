@@ -5,10 +5,18 @@ if [[ -d /tmp/config ]]; then
 	rm -rf /tmp/*
 fi
 
-cd /opt/homs
-sed -i -e "s/localhost/$ACTIVITI_HOST/" config/activiti.yml.sample
-sed -i -e "s/localhost/$DB_HOST/" config/database.yml.sample
-find config -name '*.sample' | xargs -I{} sh -c 'cp $1 ${1%.*}' -- {}
+if [[ ! -a config/activiti.yml ]]; then
+	cp config/activiti.yml.sample config/activiti.yml
+	sed -i -e "s/localhost/$ACTIVITI_HOST/" config/activiti.yml
+	sed -i -e "s/user/$ACTIVITI_USER/" config/activiti.yml
+	sed -i -e "s/changeme/$ACTIVITI_PASSWORD/" config/activiti.yml
+fi
+
+if [[ ! -a config/database.yml ]]; then
+	cp config/database.yml.sample config/database.yml
+	sed -i -e "s/localhost/$DB_HOST/" config/database.yml
+fi
+
 bundle exec rake db:migrate
 
 if [[ ! -a seed.lock || "$FORCE_DB_SEED" = "yes" ]]; then 
