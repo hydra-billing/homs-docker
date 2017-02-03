@@ -5,6 +5,20 @@ if [[ -d /tmp/config ]]; then
 	rm -rf /tmp/*
 fi
 
+while [[ -n $1 ]]; do
+	case $1 in
+		-a )	rm -f config/activiti.yml
+			;;
+		-d )	rm -f config/database.yml
+			;;
+		-s )	rm -f seed.lock
+			;;
+		* )	continue
+			;;
+	esac
+	shift
+done
+
 if [[ ! -a config/activiti.yml ]]; then
 	cp config/activiti.yml.sample config/activiti.yml
 	sed -i -e "s/localhost/$ACTIVITI_HOST/" config/activiti.yml
@@ -19,7 +33,7 @@ fi
 
 bundle exec rake db:migrate
 
-if [[ ! -a seed.lock || "$FORCE_DB_SEED" = "yes" ]]; then 
+if [[ ! -a seed.lock ]]; then 
 	bundle exec rake db:seed
 	touch seed.lock
 fi
