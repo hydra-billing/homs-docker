@@ -12,6 +12,7 @@ RUN git clone https://github.com/latera/homs.git
 WORKDIR /opt/homs
 RUN bundle --without oracle
 RUN mv /opt/homs/config /tmp
+RUN mkdir /opt/homs/config
 EXPOSE 3000
 
 ENTRYPOINT ["/entrypoint.sh"]

@@ -3,14 +3,12 @@
 
 **The container can accept the following variables:**
 
-`$ACTIVITI_HOST`: Activiti host address
+`$ACTIVITI_HOST`: Activiti host address (default: localhost)
 
-`$ACTIVITI_USER`: Activiti user name
+`$ACTIVITI_USER`: Activiti user name (default: user) 
 
-`$ACTIVITI_PASSWORD`: Activiti password
+`$ACTIVITI_PASSWORD`: Activiti password (default: changeme)
 
-`$DB_HOST`: Database host address
+`$DB_HOST`: Database host address (default: localhost)
 
-`$FORCE_DB_SEED`: Forced re-run of 'bundle exec rake db:seed'
-
-`$RACK_ENV`: Ruby runtime environment (available options: development, production, test)
+`$RACK_ENV`: Ruby runtime environment (available options: development, production, test; default: development)
