@@ -10,7 +10,9 @@ RUN apt-get update \
 		       libqtwebkit-dev
 RUN git clone https://github.com/latera/homs.git
 WORKDIR /opt/homs
+RUN gem install bundler
 RUN bundle --without oracle
+RUN find config -name '*.sample' | xargs -I{} sh -c 'cp $1 ${1%.*}' -- {}
 RUN mkdir /tmp/config
 RUN cp -r /opt/homs/config/* /tmp/config
 EXPOSE 3000
